@@ -7,11 +7,20 @@ var items = {};
 
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
+// exports.create = (text, callback) => {
+//   var id = counter.getNextUniqueId();
+//   items[id] = text;
+//   callback(null, { id, text });
+// };
+
 exports.create = (text, callback) => {
   var id = counter.getNextUniqueId();
   items[id] = text;
   callback(null, { id, text });
 };
+
+
+
 
 exports.readAll = (callback) => {
   var data = _.map(items, (text, id) => {

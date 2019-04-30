@@ -20,7 +20,7 @@ const readCounter = (callback) => {
     if (err) {
       callback(null, 0);
     } else {
-      callback(null, Number(fileData));
+      callback(null, Number(fileData)); //(err, currentData)
     }
   });
 };
@@ -38,11 +38,40 @@ const writeCounter = (count, callback) => {
 
 // Public API - Fix this function //////////////////////////////////////////////
 
-exports.getNextUniqueId = () => {
-  counter = counter + 1;
-  return zeroPaddedNumber(counter);
+exports.getNextUniqueId = (callback) => {
+  readCounter((err, currentState) => {
+    if(err){
+      throw ('err file is not found');
+    } else {
+      writeCounter(currentState, (err, currentStateString) => {
+        if(err){
+          throw ('error writing to file');
+        } else {
+          currentState += 1;
+          console.log(currentState);
+          console.log(currentStateString);
+          callback(err, currentStateString);
+        }
+      });
+    }
+  });
 };
 
+/*
+a(() => {
+  if(err){
+    return err
+  } else{
+
+  }
+  b(() => {
+    c(() =>{
+      console.log(we done)
+    })
+  })
+})
+})
+*/
 
 
 // Configuration -- DO NOT MODIFY //////////////////////////////////////////////
