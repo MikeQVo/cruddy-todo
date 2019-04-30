@@ -7,20 +7,23 @@ var items = {};
 
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
-// exports.create = (text, callback) => {
-//   var id = counter.getNextUniqueId();
-//   items[id] = text;
-//   callback(null, { id, text });
-// };
-
 exports.create = (text, callback) => {
-  var id = counter.getNextUniqueId();
-  items[id] = text;
-  callback(null, { id, text });
+  counter.getNextUniqueId((err, id) => {
+    if (err) {
+      throw 'error';
+    } else {
+      console.log('idString in getNext', id);
+      fs.appendFile('./data/' + id + '.txt', {id, text}, () => {
+        callback(null, { id, text });
+      });
+    }
+  });
+  // console.log('id outside of else block', id);
+  // items[id] = text;
+  // // console.log('items ', items[id]);
+  //fs.appendFile(id+'.txt', text, (err, callback) => { if(err){ throw err} else{ callback}})
+  //fs.appendFile(path, data, callback) './data/00001.txt'
 };
-
-
-
 
 exports.readAll = (callback) => {
   var data = _.map(items, (text, id) => {

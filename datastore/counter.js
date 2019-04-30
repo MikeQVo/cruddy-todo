@@ -43,36 +43,16 @@ exports.getNextUniqueId = (callback) => {
     if(err){
       throw ('err file is not found');
     } else {
-      writeCounter(currentState, (err, currentStateString) => {
+      writeCounter(currentState+1, (err, currentStateString) => {
         if(err){
           throw ('error writing to file');
         } else {
-          currentState += 1;
-          console.log(currentState);
-          console.log(currentStateString);
           callback(err, currentStateString);
         }
       });
     }
   });
 };
-
-/*
-a(() => {
-  if(err){
-    return err
-  } else{
-
-  }
-  b(() => {
-    c(() =>{
-      console.log(we done)
-    })
-  })
-})
-})
-*/
-
 
 // Configuration -- DO NOT MODIFY //////////////////////////////////////////////
 
