@@ -38,13 +38,13 @@ const writeCounter = (count, callback) => {
 
 // Public API - Fix this function //////////////////////////////////////////////
 
-exports.getNextUniqueId = (callback) => {
+exports.getNextUniqueId = (callback) => { //(err, idString) => {if (err) {throw 'error';} else {return idString;}}
   readCounter((err, currentState) => {
-    if(err){
+    if (err) {
       throw ('err file is not found');
     } else {
-      writeCounter(currentState+1, (err, currentStateString) => {
-        if(err){
+      writeCounter(currentState + 1, (err, currentStateString) => {
+        if (err) {
           throw ('error writing to file');
         } else {
           callback(err, currentStateString);
@@ -53,6 +53,8 @@ exports.getNextUniqueId = (callback) => {
     }
   });
 };
+
+
 
 // Configuration -- DO NOT MODIFY //////////////////////////////////////////////
 
